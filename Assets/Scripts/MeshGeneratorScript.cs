@@ -23,8 +23,8 @@ public class MeshGeneratorScript : MonoBehaviour
     {
         Vertacies = new Vector3[]
         {
-            new Vector3(0,0,0), //0
-            new Vector3(0,0,1), //1
+            new Vector3(0,0,0),//0
+            new Vector3(0,0,1),//1
             new Vector3(1,0,0),//2
             new Vector3(1,0,1),//3           
             new Vector3(1,0,2),//4
