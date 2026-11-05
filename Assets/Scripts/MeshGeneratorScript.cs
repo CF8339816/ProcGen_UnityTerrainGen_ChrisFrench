@@ -1,5 +1,8 @@
+using System.Collections;
+using UnityEditor;
 using UnityEngine;
-
+using UnityEngine.UIElements;
+using static UnityEditor.ShaderData;
 
 [RequireComponent(typeof(MeshFilter))]
 
@@ -14,21 +17,28 @@ public class MeshGeneratorScript : MonoBehaviour
     public int zSize = 40;
     public int i = 0;
     public int VertexCount;
-
-
+    public int Verts=0;
+    public int Tris=0;
+    public float yVal;
+     public float yPass1;
+    public float yPass2;
+    public float yPass3;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
+    {        
+        
+        
         baseMesh = new Mesh();
         GetComponent<MeshFilter>().mesh = baseMesh;
         CalculateVertexNumber();
-        createShape();
-        meshupdate();
+        StartCoroutine(createShape());
+        //meshupdate();
         //OnDrawGizmos();
     }
 
-    void createShape()
+    //void createShape()
+    IEnumerator createShape()
     {
         Vertacies = new Vector3[VertexCount];
 
@@ -36,16 +46,42 @@ public class MeshGeneratorScript : MonoBehaviour
         {
             for (int x = 0; x <= xSize; x++)
             {
-                Vertacies[i] = new Vector3(x,0,z);
+                yVal= (yPass1 - yPass2 + yPass3)*3;
+
+                yPass1 = Mathf.PerlinNoise(x * .25f, z * .5f) * 2f;
+                yPass2 = Mathf.PerlinNoise(x * .65f, z * .3f) * 3f;
+                yPass2 = Mathf.PerlinNoise(x * .6f, z * .1f) * .5f;
+
+                Vertacies[i] = new Vector3(x, yVal, z);
                 i++;
             }
         }
 
-        triangles = new int[3];
+         triangles = new int[xSize * zSize *6];
 
-        triangles[0] = 0;
-        triangles[1]=xSize+1; 
-        triangles[2]=1;
+        for (int z = 0; z < zSize; z++)
+        {
+
+            for (int x = 0; x < xSize; x++) 
+            {
+
+                triangles[Tris + 0] = Verts+0;
+                triangles[Tris + 1] = Verts +xSize + 1;
+                triangles[Tris + 2] = Verts + 1;
+                triangles[Tris + 3] = Verts + 1;
+                triangles[Tris + 4] = Verts + xSize +1;
+                triangles[Tris + 5] = Verts +xSize + 2;
+        
+                Verts++;
+                Tris += 6;
+
+                yield return new WaitForSeconds(.025f);
+            }
+            Verts++;
+        }
+           
+       
+
 
         #region Manual setup for mesh gen
         //Vertacies = new Vector3[]
@@ -96,6 +132,11 @@ public class MeshGeneratorScript : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+       meshupdate();
+    }
+
     void meshupdate()
     {
         baseMesh.Clear();
@@ -129,18 +170,18 @@ public class MeshGeneratorScript : MonoBehaviour
         
     }
 
-
-
-
-    //private void Update()
+    //void Colour1() //definable colours modifies original source shader on item the code is attahed to 
     //{
-
-    //baseMesh.Clear();
-    //baseMesh.vertices = Vertacies;   
-    //baseMesh.triangles = triangles;
-
-    //baseMesh.RecalculateNormals();
-
+    //    {
+    //    Renderer myRenderer = GetComponent<Renderer>();
+    //    Color colour1 = new Color(0.2f, 0.6f, 1.0f, 1.0f);
+    //    myRenderer.material.SetColor("_BaseColor", colour1);
+    //}
+    //void Colour2()// definable colours modifies original source shader on item the code is attahed to 
+    //{
+    //    Renderer myRenderer = GetComponent<Renderer>();
+    //    Color colour1 = new Color(0.2f, 0.6f, 1.0f, 1.0f);
+    //    myRenderer.material.SetColor("_BaseColor", colour1);
     //}
 
 
