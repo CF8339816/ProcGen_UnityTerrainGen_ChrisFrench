@@ -25,7 +25,7 @@ public class MeshGeneratorScript : MonoBehaviour
         CalculateVertexNumber();
         createShape();
         meshupdate();
-       // OnDrawGizmos();
+        //OnDrawGizmos();
     }
 
     void createShape()
@@ -41,7 +41,11 @@ public class MeshGeneratorScript : MonoBehaviour
             }
         }
 
+        triangles = new int[3];
 
+        triangles[0] = 0;
+        triangles[1]=xSize+1; 
+        triangles[2]=1;
 
         #region Manual setup for mesh gen
         //Vertacies = new Vector3[]
@@ -107,15 +111,15 @@ public class MeshGeneratorScript : MonoBehaviour
         VertexCount = (xSize + 1) * (zSize + 1);
     }
 
-    private void OnDrawGizmos()
+   void OnDrawGizmos()
     {
        if (Vertacies == null)
         {
             return;
         }
-        
-        
-        for (i = 0; i < VertexCount; i++)
+
+        //for (i = 0; i < VertexCount; i++)
+        for (i = 0; i < Vertacies.Length; i++)
         
         {
             Gizmos.DrawSphere(Vertacies[i], .1f);
