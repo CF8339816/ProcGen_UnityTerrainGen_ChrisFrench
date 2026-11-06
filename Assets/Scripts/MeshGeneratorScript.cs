@@ -60,6 +60,10 @@ public class MeshGeneratorScript : MonoBehaviour
     {
         Vertacies = new Vector3[VertexCount];
 
+        TopoShader = new Color[VertexCount];//added  due to versioning change from  base tutorials -CF
+        for (int c = 0; c < TopoShader.Length; c++) TopoShader[c] = Color.white;//added  due to versioning change from  base tutorials -CF
+
+
         int i = 0;  //added here to protect against shared ref errors due to versioning change from  base tutorials -CF
 
         for (int z = 0; z <= zSize; z++)// per the tutorial 'i' could be imbeded in the for loop to make it unique to only this loop. for (int i = 0, int z = 0; z <= zSize; z++)
@@ -106,6 +110,11 @@ public class MeshGeneratorScript : MonoBehaviour
                 triangles[Tris + 4] = Verts + xSize + 1;
                 triangles[Tris + 5] = Verts + xSize + 2;
 
+                EvaluateVertexColor(Verts);
+                EvaluateVertexColor(Verts + xSize + 1);
+                EvaluateVertexColor(Verts + 1);
+                EvaluateVertexColor(Verts + xSize + 2);
+
                 Verts++;
                 Tris += 6;
 
@@ -115,11 +124,10 @@ public class MeshGeneratorScript : MonoBehaviour
         }
         i = 0;//added to avoid out of range issues due to moved location of defining 'i' var due to versioning change from  base tutorials -CF
 
-        TopoShader = new Color[Vertacies.Length];
+        //  TopoShader = new Color[Vertacies.Length];  // moved upward due to versioning change from  base tutorials -CF
+        // if (i >= Vertacies.Length)//added to avoid accidental index  crashes due to versioning change from  base tutorials -CF  // moved upward due to versioning change from  base tutorials -CF
         for (int z = 0; z <= zSize; z++)// per the tutorial 'i' could be imbeded in the for loop to make it unique to only this loop. for (int i = 0, int z = 0; z <= zSize; z++)
-        {
-
-            
+        {            
             for (int x = 0; x <= xSize; x++)
             {
                 if (i >= Vertacies.Length)//added to avoid accidental index  crashes due to versioning change from  base tutorials -CF
@@ -151,6 +159,15 @@ public class MeshGeneratorScript : MonoBehaviour
 
 
     }
+    void EvaluateVertexColor(int index)//added  due to versioning change from  base tutorials -CF
+    {
+        if (index >= Vertacies.Length || index < 0) return;
+        float currentHeight = Vertacies[index].y;
+        float heightNormalized = Mathf.InverseLerp(minTerraineHeight, maxTerraineHeight, currentHeight);
+        TopoShader[index] = altitudes.Evaluate(heightNormalized);
+    }
+
+
     private void Update()
     {
        meshupdate();
@@ -158,11 +175,19 @@ public class MeshGeneratorScript : MonoBehaviour
 
     void meshupdate()
     {
-        if (TopoShader == null || TopoShader.Length == 0) return;// added to prevent timing loop errors due to slower coroutine processing of the terraine due to versioning change from  base tutorials -CF
+        if (Vertacies == null || Vertacies.Length == 0) return;// added to try and fis gradient shader  ifx issuess that prevented the mesh from displayiong as it drew -CF
+        // if (TopoShader == null || TopoShader.Length == 0) return;// added to prevent timing loop errors due to slower coroutine processing of the terraine due to versioning change from  base tutorials -CF removed for same reason as above added-CF
 
-        baseMesh.Clear();
+        baseMesh.Clear(false);//added false to try and fix shader issue due to versioning change from  base tutorials -CF
         baseMesh.vertices = Vertacies;
         baseMesh.triangles = triangles;
+
+        if (TopoShader != null && TopoShader.Length != Vertacies.Length)
+        {
+            Debug.LogError($"[Shader Sync Bug] Vertices length ({Vertacies.Length}) does not match TopoShader length ({TopoShader.Length})!");
+        }
+
+
         baseMesh.colors = TopoShader;
        // baseMesh.uv = UVCords;
 
