@@ -182,17 +182,19 @@ public class MeshGeneratorScript : MonoBehaviour
         baseMesh.vertices = Vertacies;
         baseMesh.triangles = triangles;
 
-        if (TopoShader != null && TopoShader.Length != Vertacies.Length)
-        {
-            Debug.LogError($"[Shader Sync Bug] Vertices length ({Vertacies.Length}) does not match TopoShader length ({TopoShader.Length})!");
-        }
+        //if (TopoShader != null && TopoShader.Length != Vertacies.Length)
+        //{
+        //    Debug.LogError($"[Shader Sync Bug] Vertices length ({Vertacies.Length}) does not match TopoShader length ({TopoShader.Length})!");
+        //}
 
+        baseMesh.SetColors(TopoShader);// added to try and fix gradient shader  ifx issuess that prevented the mesh from displayiong as it drew -CF
 
-        baseMesh.colors = TopoShader;
-       // baseMesh.uv = UVCords;
+        // baseMesh.colors = TopoShader; // removed to try and fix gradient shader  ifx issuess that prevented the mesh from displayiong as it drew -CF 
+        // baseMesh.uv = UVCords;
 
 
         baseMesh.RecalculateNormals();
+        baseMesh.RecalculateBounds(); // added to try and fis gradient shader  ifx issuess that prevented the mesh from displayiong as it drew -CF
     }
 
 

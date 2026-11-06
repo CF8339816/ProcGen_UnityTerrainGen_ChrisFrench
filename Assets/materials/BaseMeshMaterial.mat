@@ -115,9 +115,9 @@ Material:
     - _WorkflowMode: 0
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
-    - _smoothness: 0.5
+    - _smoothness: 0
     m_Colors:
-    - _BaseColor: {r: 0.28251454, g: 0.48247975, b: 0.014955529, a: 1}
+    - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
     - _BaseColour: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.2825145, g: 0.48247975, b: 0.014955528, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

@@ -205,13 +205,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13309188, y: 0.2895264, z: -0.040690277, w: 0.94699806}
-  m_LocalPosition: {x: 3, y: 14, z: -19}
+  m_LocalRotation: {x: 0.17034219, y: 0.28769606, z: -0.052078836, w: 0.9410113}
+  m_LocalPosition: {x: 3.48, y: 17.01, z: -18.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 16, y: 34, z: 0}
+  m_LocalEulerAnglesHint: {x: 20.521, y: 34, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,7 +285,7 @@ Light:
   serializedVersion: 12
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -465,21 +465,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   altitudes:
     serializedVersion: 2
-    key0: {r: 0.019975867, g: 0.38005382, b: 0.05503379, a: 1}
-    key1: {r: 0.6545533, g: 0.6765498, b: 0.2726258, a: 1}
-    key2: {r: 0.6393967, g: 0.6590959, b: 0.2973585, a: 0}
+    key0: {r: 0, g: 0.19680643, b: 1, a: 1}
+    key1: {r: 0.046101812, g: 0.26415092, b: 0.06743269, a: 1}
+    key2: {r: 0.24304882, g: 0.3584906, b: 0.21813814, a: 0}
     key3: {r: 0.46226418, g: 0.39695236, b: 0.17661981, a: 0}
     key4: {r: 0.3962264, g: 0.32441154, b: 0.24110003, a: 0}
-    key5: {r: 0.5175528, g: 0.52029324, b: 0.5208375, a: 0}
-    key6: {r: 0.7397177, g: 0.81744736, b: 0.832884, a: 0}
+    key5: {r: 0.40992257, g: 0.34652406, b: 0.27267876, a: 0}
+    key6: {r: 0.5175528, g: 0.52029324, b: 0.5208375, a: 0}
     key7: {r: 1, g: 1, b: 1, a: 0}
-    ctime0: 20046
-    ctime1: 22745
-    ctime2: 32382
-    ctime3: 36237
-    ctime4: 47224
-    ctime5: 59174
-    ctime6: 59945
+    ctime0: 5975
+    ctime1: 12143
+    ctime2: 39128
+    ctime3: 47224
+    ctime4: 52043
+    ctime5: 57247
+    ctime6: 62644
     ctime7: 65535
     atime0: 0
     atime1: 65535
